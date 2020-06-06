@@ -16,6 +16,8 @@
     <string name="nomb_est">Nombre</string>
     <string name="apell_est">Apellido</string>
     <string name="edad_est">Edad</string>
-
+    <string name="usuario">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="ingresar">Ingresar</string>
 
 </resources>
