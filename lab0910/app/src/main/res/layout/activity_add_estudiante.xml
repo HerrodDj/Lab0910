@@ -76,7 +76,7 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
             android:src="@drawable/ic_check"
-            app:backgroundTint="@color/" />
+            app:backgroundTint="@color/colorAccent" />
 
 
     </LinearLayout>
