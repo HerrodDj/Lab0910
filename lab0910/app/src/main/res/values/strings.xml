@@ -9,4 +9,13 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="id_curso">Id Curso</string>
+    <string name="descripcion">Descripción</string>
+    <string name="creditos">Creditos</string>
+    <string name="id_est">Id Estudiante</string>
+    <string name="nomb_est">Nombre</string>
+    <string name="apell_est">Apellido</string>
+    <string name="edad_est">Edad</string>
+
+
 </resources>
