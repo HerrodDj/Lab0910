@@ -7,14 +7,14 @@ public class Estudiante extends Usuario {
     private ArrayList<Curso> listCursos;
 
 
-    public Estudiante(String id, String nombre, String apellidos, String role, int edad, ArrayList<Curso> list) {
-        super(id, nombre, apellidos, role);
+    public Estudiante(String id, String nombre, String apellidos, int edad, ArrayList<Curso> list) {
+        super(id, nombre, apellidos, "Estudiante");
         this.edad =edad;
         this.listCursos =list;
     }
 
-    public Estudiante(String id, String nombre, String apellidos, String role, int edad) {
-        super(id, nombre, apellidos, role);
+    public Estudiante(String id, String nombre, String apellidos, int edad) {
+        super(id, nombre, apellidos, "Estudiante");
         this.edad =edad;
         this.listCursos = new ArrayList<>();
     }
