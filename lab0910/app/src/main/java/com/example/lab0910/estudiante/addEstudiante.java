@@ -18,6 +18,8 @@ public class addEstudiante extends AppCompatActivity {
     private TextInputEditText nombreEst;
     private TextInputEditText apellidosEst;
     private EditText edadEst;
+    private TextInputEditText passwordEst;
+
     private FloatingActionButton addEstbtn;
 
     @Override
@@ -28,16 +30,22 @@ public class addEstudiante extends AppCompatActivity {
         nombreEst = findViewById(R.id.nomEstAdd);
         apellidosEst = findViewById(R.id.apelliEstAdd);
         edadEst =findViewById(R.id.edadEstAdd);
+        passwordEst = findViewById(R.id.passwordEstAdd);
         addEstbtn = findViewById(R.id.addEstBtn);
 
 
         addEstbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Estudiante estudiante = new Estudiante(idEst.getText().toString(),
-                        nombreEst.getText().toString(), apellidosEst.getText().toString(), Integer.parseInt(edadEst.getText().toString()));
-                Toast.makeText(addEstudiante.this, "Datos adquirdos:"+estudiante.toString(), Toast.LENGTH_SHORT).show();
+                try {
+                    Estudiante estudiante = new Estudiante(idEst.getText().toString(),
+                            nombreEst.getText().toString(), apellidosEst.getText().toString(), Integer.parseInt(edadEst.getText().toString()),passwordEst.getText().toString());
+                    Toast.makeText(addEstudiante.this, "Datos adquirdos:" + estudiante.toString(), Toast.LENGTH_SHORT).show();
 
+
+                }catch (Exception e){
+                    Toast.makeText(addEstudiante.this, "Error al crear el Estudiante" , Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -7,13 +7,15 @@ public class Usuario{
     private String id;
     private String nombre;
     private String apellido;
+    private String password;
     private String role;
 
-    public Usuario(String id, String nombre, String apellido, String role) {
+    public Usuario(String id, String nombre, String apellido, String role, String password) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.role = role;
+        this.password =password;
     }
 
     public Usuario() {
@@ -39,6 +41,10 @@ public class Usuario{
         return role;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -49,6 +55,10 @@ public class Usuario{
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setRole(String role) {
