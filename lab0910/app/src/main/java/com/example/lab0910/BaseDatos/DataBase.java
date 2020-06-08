@@ -42,7 +42,6 @@ public class DataBase extends SQLiteOpenHelper {
         cv.put(COLUMN_CREDITOS_CUR, curso.getCreditos());
         long insert = db.insert(CURSO_TABLE,null,cv);
         if(insert== -1){
-            return false;}
-        else{return true;}
+            return false;} else{return true;}
     }
 }

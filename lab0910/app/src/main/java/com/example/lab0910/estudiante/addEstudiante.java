@@ -2,7 +2,6 @@ package com.example.lab0910.estudiante;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.lab0910.R;
-import com.example.lab0910.curso.addCurso;
 import com.example.lab0910.model.Estudiante;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
