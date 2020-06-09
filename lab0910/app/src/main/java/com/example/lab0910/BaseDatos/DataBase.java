@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.lab0910.model.Curso;
+import com.example.lab0910.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +22,29 @@ public class DataBase extends SQLiteOpenHelper {
     public static final String COLUMN_CREDITOS_CUR = "CREDITOS_CUR";
     public static final String COLUMN_ID_CUR = "ID_CUR";
 
+    public static final String USUARIO_TABLE="USUARIO_TABLE";
+    public static final String COLUMN_ID_USER="ID_USER";
+    public static final String COLUMN_NOMBRE_USER="NOMBRE_USER";
+    public static final String COLUMN_APELLIDOS_USER ="APELLIDOS_USER";
+    public static final String COLUMN_PASSWORD_USER = "PASSWORD_USER";
+    public static final String COLUMN_ROLE_USER ="ROLE_USER";
+    public static final String  COLUMN_EDAD_USER="EDAD_USER";
+
+
+
     public DataBase(@Nullable Context context) {
         super(context, "matricula.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableStatement = "CREATE TABLE " + CURSO_TABLE +
+        String createTableCurso = "CREATE TABLE " + CURSO_TABLE +
                 "(" + COLUMN_ID_CUR + " TEXT PRIMARY KEY, " + COLUMN_DESCRIPCION_CUR + " TEXT, " + COLUMN_CREDITOS_CUR + " INTEGER  )";
-        db.execSQL(createTableStatement);
+        db.execSQL(createTableCurso);
+        String createTableUsuario = "CREATE TABLE " + USUARIO_TABLE +
+                "(" + COLUMN_ID_USER + " TEXT PRIMARY KEY, " + COLUMN_NOMBRE_USER + " TEXT, " + COLUMN_APELLIDOS_USER +" TEXT, "
+                + COLUMN_PASSWORD_USER + " TEXT, " + COLUMN_ROLE_USER + " TEXT, " + COLUMN_EDAD_USER + " INTEGER )";
+        db.execSQL(createTableUsuario);
 
     }
 
@@ -48,6 +63,8 @@ public class DataBase extends SQLiteOpenHelper {
             return false;}
         else{return true;}
     }
+
+
 
     public List<Curso> listarTodoCurso(){
         List<Curso> list = new ArrayList<>();
@@ -72,4 +89,24 @@ public class DataBase extends SQLiteOpenHelper {
 
 
     }
+
+
+
+
+    // CRUD para cursos
+    public boolean insertar(Usuario usuario){
+        SQLiteDatabase db= this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_ID_USER, usuario.getId());
+        cv.put(COLUMN_NOMBRE_USER, usuario.getNombre());
+        cv.put(COLUMN_APELLIDOS_USER, usuario.getApellido());
+        cv.put(COLUMN_PASSWORD_USER, usuario.getPassword());
+        cv.put(COLUMN_ROLE_USER, usuario.getRole());
+        cv.put(COLUMN_EDAD_USER,usuario.getEdad());
+        if( db.insert(USUARIO_TABLE,null,cv) == -1){
+            return false;}
+        else{return true;}
+    }
+
+
 }
