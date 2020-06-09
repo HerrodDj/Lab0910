@@ -2,6 +2,8 @@
 package com.example.lab0910.model;
 
 
+import java.util.ArrayList;
+
 public class Usuario{
 
     private String id;
@@ -9,13 +11,27 @@ public class Usuario{
     private String apellido;
     private String password;
     private String role;
+    private int edad;
+    private ArrayList<Curso> listCursos;
 
-    public Usuario(String id, String nombre, String apellido, String role, String password) {
+    public Usuario(String id, String nombre, String apellido, String role, String password, int edad) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.role = role;
         this.password =password;
+        this.edad =edad;
+        listCursos =new ArrayList<>();
+    }
+
+    public Usuario(String id, String nombre, String apellido, String password, String role, int edad, ArrayList<Curso> listCursos) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.password = password;
+        this.role = role;
+        this.edad = edad;
+        this.listCursos = listCursos;
     }
 
     public Usuario() {
@@ -45,6 +61,14 @@ public class Usuario{
         return password;
     }
 
+    public int getEdad() {
+        return edad;
+    }
+
+    public ArrayList<Curso> getListCursos() {
+        return listCursos;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -65,13 +89,24 @@ public class Usuario{
         this.role = role;
     }
 
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public void setListCursos(ArrayList<Curso> listCursos) {
+        this.listCursos = listCursos;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
                 "id='" + id + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
+                ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", edad=" + edad +
+                ", listCursos=" + listCursos.toString() +
                 '}';
     }
 }

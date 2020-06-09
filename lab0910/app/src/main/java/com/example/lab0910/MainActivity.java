@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.lab0910.curso.AddCurso;
+import com.example.lab0910.estudiante.addEstudiante;
 
 public class MainActivity extends AppCompatActivity {
 
