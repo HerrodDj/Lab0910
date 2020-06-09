@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.lab0910.R;
@@ -33,8 +34,9 @@ public class AddCurso extends AppCompatActivity {
             public void onClick(View v) {
                 try{
                     Curso curso = new Curso(idCurso.getText().toString(), descriCurso.getText().toString(), Integer.parseInt(crediCursos.getText().toString()));
-
+                    Toast.makeText(AddCurso.this, curso.toString(),Toast.LENGTH_SHORT).show();
                 }catch (Exception e){
+                    Toast.makeText(AddCurso.this, "No se agregó el curso",Toast.LENGTH_SHORT).show();
 
                 }
             }
