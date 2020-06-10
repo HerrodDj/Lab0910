@@ -40,9 +40,19 @@ public class DataBase extends SQLiteOpenHelper {
     public static final String COLUMN_ID_CURSO="ID_CURSO";
 
 
-    public DataBase(@Nullable Context context) {
+    private static DataBase instancia;
+
+
+    private  DataBase(@Nullable Context context) {
 
         super(context, "matricula.db", null, 1);
+    }
+
+    public static DataBase getInstancia(Context context) {
+        if (instancia == null) {
+            instancia = new DataBase(context);
+        }
+        return instancia;
     }
 
     @Override
@@ -182,6 +192,7 @@ public class DataBase extends SQLiteOpenHelper {
     public boolean insertar(Matricula matricula){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+
         cv.put(COLUMN_ID_CURSO, matricula.getIdCurso());
         cv.put(COLUMN_ID_USUARIO, matricula.getIdEstudiante());
         if( db.insert(MATRICULA_TABLE,null,cv) == -1){

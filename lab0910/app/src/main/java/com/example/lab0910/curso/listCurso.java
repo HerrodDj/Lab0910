@@ -3,6 +3,7 @@ package com.example.lab0910.curso;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -27,7 +28,7 @@ public class listCurso extends AppCompatActivity {
         list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataBase dataBase =new DataBase(listCurso.this);
+                DataBase dataBase = DataBase.getInstancia(listCurso.this);
                 List<Curso> lista = dataBase.listarTodoCurso();
                 Toast.makeText(listCurso.this, "Datos adquirdos:" + lista.toString(), Toast.LENGTH_SHORT).show();
 

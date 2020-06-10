@@ -41,10 +41,10 @@ public class AddEstudiante extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    Usuario usuario = new Usuario( id.getText().toString(), nombre.getText().toString(), apellidos.getText().toString(),password.getText().toString(),"Estudiante", Integer.parseInt(edad.getText().toString()) );
+                    //DataBase dataBase= new DataBase(AddEstudiante.this);
 
-                   Usuario usuario = new Usuario( id.getText().toString(), nombre.getText().toString(), apellidos.getText().toString(),password.getText().toString(),"Estudiante", Integer.parseInt(edad.getText().toString()) );
-                  DataBase dataBase= new DataBase(AddEstudiante.this);
-                    if (dataBase.insertar(usuario)){
+                    if (DataBase.getInstancia(AddEstudiante.this).insertar(usuario)){
                         Toast.makeText(AddEstudiante.this, usuario.toString(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(AddEstudiante.this, listEstudiante.class);
                         AddEstudiante.this.startActivity(intent);

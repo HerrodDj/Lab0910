@@ -35,7 +35,7 @@ public class AddCurso extends AppCompatActivity {
             public void onClick(View v) {
                 try{
                     Curso curso = new Curso(idCurso.getText().toString(), descriCurso.getText().toString(), Integer.parseInt(crediCursos.getText().toString()));
-                    DataBase dataBase =new DataBase(AddCurso.this);
+                    DataBase dataBase =DataBase.getInstancia(AddCurso.this);
                     if( dataBase.insertar(curso)){
                     Toast.makeText(AddCurso.this,"Se inserto"+ curso.toString(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddCurso.this, listCurso.class);
