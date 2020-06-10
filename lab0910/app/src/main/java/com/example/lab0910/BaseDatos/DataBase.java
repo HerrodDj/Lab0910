@@ -161,7 +161,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     }
 
-    public List<Usuario> ListarTodoEstudiante(){
+    public List<Usuario> listarTodoEstudiante(){
         List<Usuario> list = new ArrayList<>();
         String queryString = "SELECT * FROM " +USUARIO_TABLE + " WHERE " + COLUMN_ROLE_USER + " = Estudiante" ;
 
@@ -192,15 +192,63 @@ public class DataBase extends SQLiteOpenHelper {
     public boolean insertar(Matricula matricula){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-
-        cv.put(COLUMN_ID_CURSO, matricula.getIdCurso());
         cv.put(COLUMN_ID_USUARIO, matricula.getIdEstudiante());
+        cv.put(COLUMN_ID_CURSO, matricula.getIdCurso());
         if( db.insert(MATRICULA_TABLE,null,cv) == -1){
             return false;}
         else{return true;}
 
     }
 
+
+    public List<Matricula> listTodaMatricula(){
+        List<Matricula> matriculas= new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT * FROM " + MATRICULA_TABLE;
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){
+            do{
+               int id = cursor.getInt(0);
+               String usuario = cursor.getString(1);
+               String curso = cursor.getString(2);
+                Matricula matricula = new Matricula(usuario, curso);
+                matriculas.add(matricula);
+            }while (cursor.moveToNext());
+
+        }
+        cursor.close();
+        db.close();
+        return matriculas;
+
+    }
+
+    public List<Curso> listCursosMatPorEstudiante(String idEst){
+
+        List<Curso> list = new ArrayList<>();
+        String queryString = "SELECT * FROM " +CURSO_TABLE+ "," + MATRICULA_TABLE +
+                " WHERE "+ MATRICULA_TABLE+"."+ COLUMN_ID_USUARIO +" = "+idEst +" AND "
+        + MATRICULA_TABLE+"."+COLUMN_ID_CURSO+" = "+ CURSO_TABLE+"."+COLUMN_ID_CUR;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){
+            do{
+                String id = cursor.getString(0);
+                String descripcion = cursor.getString(1);
+                int creditos = cursor.getInt(2);
+                Curso curso = new Curso(id,descripcion,creditos);
+                list.add(curso);
+            }while (cursor.moveToNext());
+
+        }
+
+        cursor.close();
+        db.close();
+        return list;
+
+
+    }
 
 
 
