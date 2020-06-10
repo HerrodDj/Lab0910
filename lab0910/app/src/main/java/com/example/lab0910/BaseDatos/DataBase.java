@@ -19,25 +19,25 @@ import java.util.List;
 public class DataBase extends SQLiteOpenHelper {
 
     //TABLA DE CURSOS
-    public static final String CURSO_TABLE = "CURSO_TABLE";
-    public static final String COLUMN_DESCRIPCION_CUR = "DESCRIPCION_CUR";
-    public static final String COLUMN_CREDITOS_CUR = "CREDITOS_CUR";
-    public static final String COLUMN_ID_CUR = "ID_CUR";
+    private static final String CURSO_TABLE = "CURSO_TABLE";
+    private static final String COLUMN_DESCRIPCION_CUR = "DESCRIPCION_CUR";
+    private static final String COLUMN_CREDITOS_CUR = "CREDITOS_CUR";
+    private static final String COLUMN_ID_CUR = "ID_CUR";
 
     //TABLA DE USUARIOS
-    public static final String USUARIO_TABLE="USUARIO_TABLE";
-    public static final String COLUMN_ID_USER="ID_USER";
-    public static final String COLUMN_NOMBRE_USER="NOMBRE_USER";
-    public static final String COLUMN_APELLIDOS_USER ="APELLIDOS_USER";
-    public static final String COLUMN_PASSWORD_USER = "PASSWORD_USER";
-    public static final String COLUMN_ROLE_USER ="ROLE_USER";
-    public static final String  COLUMN_EDAD_USER="EDAD_USER";
+    private static final String USUARIO_TABLE="USUARIO_TABLE";
+    private static final String COLUMN_ID_USER="ID_USER";
+    private static final String COLUMN_NOMBRE_USER="NOMBRE_USER";
+    private static final String COLUMN_APELLIDOS_USER ="APELLIDOS_USER";
+    private static final String COLUMN_PASSWORD_USER = "PASSWORD_USER";
+    private static final String COLUMN_ROLE_USER ="ROLE_USER";
+    private static final String  COLUMN_EDAD_USER="EDAD_USER";
 
     //TABLA DE MATRICULA
-    public static final String MATRICULA_TABLE ="MATRICULA_TABLE";
-    public static final String COLUMN_ID_MAT = "ID_MAT";
-    public static final String COLUMN_ID_USUARIO="ID_USUARIO";
-    public static final String COLUMN_ID_CURSO="ID_CURSO";
+    private static final String MATRICULA_TABLE ="MATRICULA_TABLE";
+    private static final String COLUMN_ID_MAT = "ID_MAT";
+    private static final String COLUMN_ID_USUARIO="ID_USUARIO";
+    private static final String COLUMN_ID_CURSO="ID_CURSO";
 
 
     private static DataBase instancia;
@@ -109,12 +109,9 @@ public class DataBase extends SQLiteOpenHelper {
             }while (cursor.moveToNext());
 
         }
-
         cursor.close();
         db.close();
         return list;
-
-
     }
 
     public boolean delete(Curso curso){
@@ -125,6 +122,13 @@ public class DataBase extends SQLiteOpenHelper {
         else{return false;}
     }
 
+    public boolean update(Curso curso){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_DESCRIPCION_CUR ,curso.getDescripcion());
+        cv.put(COLUMN_CREDITOS_CUR ,curso.getCreditos());
+        return db.update( CURSO_TABLE ,cv,COLUMN_ID_CUR+"=?",new String[]{curso.getId()}) > 0;
+    }
 
     // CRUD para Usuarios
     public boolean insertar(Usuario usuario){
@@ -204,6 +208,18 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
 
+    public boolean update(Usuario usuario){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_ID_USER, usuario.getId());
+        cv.put(COLUMN_NOMBRE_USER, usuario.getNombre());
+        cv.put(COLUMN_APELLIDOS_USER, usuario.getApellido());
+        cv.put(COLUMN_PASSWORD_USER, usuario.getPassword());
+        cv.put(COLUMN_ROLE_USER, usuario.getRole());
+        cv.put(COLUMN_EDAD_USER,usuario.getEdad());
+        return db.update( USUARIO_TABLE ,cv,COLUMN_ID_USER+"=?",new String[]{usuario.getId()}) > 0;
+    }
+
     //CRUD PARA MATRICULA
     public boolean insertar(Matricula matricula){
         SQLiteDatabase db= this.getWritableDatabase();
@@ -262,8 +278,6 @@ public class DataBase extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return list;
-
-
     }
 
 
@@ -277,9 +291,7 @@ public class DataBase extends SQLiteOpenHelper {
         else{return false;}
     }
 
-
-
-
+    
 
 
 
