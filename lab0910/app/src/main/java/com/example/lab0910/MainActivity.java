@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.lab0910.curso.AddCurso;
-import com.example.lab0910.estudiante.addEstudiante;
+import com.example.lab0910.estudiante.AddEstudiante;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,11 +22,12 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddCurso.class);
+                Intent intent = new Intent(MainActivity.this, AddEstudiante.class);
                 MainActivity.this.startActivity(intent);
 
             }
         });
 
     }
+
 }

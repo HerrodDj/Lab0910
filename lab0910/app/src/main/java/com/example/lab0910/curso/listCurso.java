@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.example.lab0910.BaseDatos.DataBase;
 import com.example.lab0910.R;
-import com.example.lab0910.estudiante.addEstudiante;
 import com.example.lab0910.model.Curso;
 
 import java.util.List;

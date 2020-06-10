@@ -14,7 +14,7 @@ public class Usuario{
     private int edad;
     private ArrayList<Curso> listCursos;
 
-    public Usuario(String id, String nombre, String apellido, String role, String password, int edad) {
+    public Usuario(String id, String nombre, String apellido, String password, String role, int edad) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -39,6 +39,10 @@ public class Usuario{
         this.nombre = null;
         this.apellido = null;
         this.role = null;
+        this.password =null;
+        this.edad =-1;
+        listCursos =new ArrayList<>();
+
     }
 
     public String getId() {
