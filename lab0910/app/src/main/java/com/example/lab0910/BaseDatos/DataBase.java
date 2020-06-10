@@ -117,8 +117,16 @@ public class DataBase extends SQLiteOpenHelper {
 
     }
 
+    public boolean delete(Curso curso){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "DELETE FROM " + CURSO_TABLE + " WHERE " +COLUMN_ID_CUR +" = "+ curso.getId() ;
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){return true;}
+        else{return false;}
+    }
 
-    // CRUD para cursos
+
+    // CRUD para Usuarios
     public boolean insertar(Usuario usuario){
         SQLiteDatabase db= this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -187,6 +195,14 @@ public class DataBase extends SQLiteOpenHelper {
 
     }
 
+    public boolean delete(Usuario usuario){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "DELETE FROM " + USUARIO_TABLE + " WHERE " +COLUMN_ID_USER +" = "+ usuario.getId() ;
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){return true;}
+        else{return false;}
+    }
+
 
     //CRUD PARA MATRICULA
     public boolean insertar(Matricula matricula){
@@ -248,6 +264,17 @@ public class DataBase extends SQLiteOpenHelper {
         return list;
 
 
+    }
+
+
+    public boolean delete(Matricula matricula){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "DELETE FROM " + MATRICULA_TABLE +
+                " WHERE " +COLUMN_ID_CURSO+" = "+ matricula.getIdCurso()
+                +" AND "+ COLUMN_ID_USUARIO+" = "+ matricula.getIdEstudiante() ;
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){return true;}
+        else{return false;}
     }
 
 
