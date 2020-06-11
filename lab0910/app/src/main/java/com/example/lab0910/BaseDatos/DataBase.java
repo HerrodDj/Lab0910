@@ -293,6 +293,28 @@ public class DataBase extends SQLiteOpenHelper {
 
     
 
+    public Usuario getUsuario(String idUser){
+        Usuario usuario = null;
+        String queryString = "SELECT * FROM " +USUARIO_TABLE+ "," + MATRICULA_TABLE +
+                " WHERE "+ USUARIO_TABLE+"."+ COLUMN_ID_USER +" = "+idUser;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){
+            String id = cursor.getString(0);
+            String nombre = cursor.getString(1);
+            String apellidos= cursor.getString(2);
+            String password= cursor.getString(3);
+            String role = cursor.getString(4);
+            int edad = cursor.getInt(5);
+            usuario = new Usuario(id,nombre, apellidos, password, role, edad);
+        }
+
+        cursor.close();
+        db.close();
+        return usuario;
+
+    }
 
 
 }

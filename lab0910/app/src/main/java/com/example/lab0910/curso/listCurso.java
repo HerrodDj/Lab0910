@@ -1,6 +1,13 @@
 package com.example.lab0910.curso;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -10,30 +17,37 @@ import android.widget.Toast;
 
 import com.example.lab0910.BaseDatos.DataBase;
 import com.example.lab0910.R;
+import com.example.lab0910.data.adapter.AdapterCurso;
 import com.example.lab0910.model.Curso;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class listCurso extends AppCompatActivity {
 
+    private RecyclerView rVLC;
+    private SearchView searchView;
+    private AdapterCurso adapCurso;
+    private ArrayList<Curso> listaC;
+    private SwipeRefreshLayout refresh;
+    private CoordinatorLayout coordinatorLayout;
 
-    private Button list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_curso);
 
-        list = findViewById(R.id.list);
 
-        list.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DataBase dataBase = DataBase.getInstancia(listCurso.this);
-                List<Curso> lista = dataBase.listarTodoCurso();
-                Toast.makeText(listCurso.this, "Datos adquirdos:" + lista.toString(), Toast.LENGTH_SHORT).show();
 
-            }
-        });
+
+    }
+
+    //depende del permiso
+    //super user debe poder ver esto
+    
+    public void addCurso(){
+
+
 
     }
 }
