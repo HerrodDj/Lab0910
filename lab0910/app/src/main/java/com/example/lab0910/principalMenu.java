@@ -1,32 +1,40 @@
 package com.example.lab0910;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.lab0910.curso.AddCurso;
+import com.example.lab0910.curso.ListCurso;
+import com.example.lab0910.estudiante.listEstudiante;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class principalMenu extends AppCompatActivity {
+public class principalMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private AppBarConfiguration mAppBarConfiguration;
+    static String rol;
+    static String idSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal_menu);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,17 +42,31 @@ public class principalMenu extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+
+        Bundle extras = getIntent().getExtras();
+        if(extras!=null) {
+            rol = (String) getIntent().getSerializableExtra("rol");
+            idSesion=(String) getIntent().getSerializableExtra("id");
+        }
+
+        checkRol(rol);
+
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_slideshow)
+                R.id.nav_home)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -54,10 +76,61 @@ public class principalMenu extends AppCompatActivity {
         return true;
     }
 
+    private void checkRol(String r) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu menu = navigationView.getMenu();
+        MenuItem holder;
+        if(r.equals("Estudiante")){
+            holder = menu.findItem(R.id.Cursos);
+            holder.setEnabled(false);
+            holder = menu.findItem(R.id.Estudiantes);
+            holder.setEnabled(false);
+        }else{
+            holder = menu.findItem(R.id.matricular);
+            holder.setEnabled(false);
+            holder = menu.findItem(R.id.listMatriculados);
+            holder.setEnabled(false);
+        }
+    }
+
+
+
     @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.matricular) {
+            logOut();
+        }else if (id == R.id.listMatriculados) {
+            carreras();
+        }else if(id==R.id.Cursos){
+            cursos();
+        }
+        else if(id==R.id.Estudiantes){
+            Estudiantes();
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void cursos() {
+        finish();
+        Intent a = new Intent(this, ListCurso.class);
+        startActivity(a);
+    }
+
+    private void Estudiantes(){
+        finish();
+        Intent a = new Intent(this, listEstudiante.class);
+        startActivity(a);
+    }
+
+    private void carreras() {
+        finish();
+        Intent a = new Intent(this, AddCurso.class);
+        startActivity(a);
+    }
+
+    private void logOut() {
     }
 }
