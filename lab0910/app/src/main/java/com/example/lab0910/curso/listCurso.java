@@ -44,7 +44,7 @@ public class listCurso extends AppCompatActivity {
 
     //depende del permiso
     //super user debe poder ver esto
-    
+
     public void addCurso(){
 
 
