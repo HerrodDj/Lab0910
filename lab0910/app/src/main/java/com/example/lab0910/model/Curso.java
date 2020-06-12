@@ -2,7 +2,9 @@
 package com.example.lab0910.model;
 
 
-public class Curso{
+import java.io.Serializable;
+
+public class Curso implements Serializable {
     private String id;
     private String descripcion;
     private int creditos;

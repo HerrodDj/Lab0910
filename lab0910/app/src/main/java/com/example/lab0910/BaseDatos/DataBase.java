@@ -175,7 +175,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     public List<Usuario> listarTodoEstudiante(){
         List<Usuario> list = new ArrayList<>();
-        String queryString = "SELECT * FROM " +USUARIO_TABLE + " WHERE " + COLUMN_ROLE_USER + " = Estudiante" ;
+        String queryString = "SELECT * FROM " + USUARIO_TABLE + " WHERE " + COLUMN_ROLE_USER +  "= 'Estudiante'" ;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);
@@ -295,8 +295,8 @@ public class DataBase extends SQLiteOpenHelper {
 
     public Usuario getUsuario(String idUser){
         Usuario usuario = null;
-        String queryString = "SELECT * FROM " +USUARIO_TABLE+ "," + MATRICULA_TABLE +
-                " WHERE "+ USUARIO_TABLE+"."+ COLUMN_ID_USER +" = "+idUser;
+        String queryString = "SELECT * FROM " +USUARIO_TABLE+
+                " WHERE "+ USUARIO_TABLE+"."+ COLUMN_ID_USER +" = "+"'"+idUser+"'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);

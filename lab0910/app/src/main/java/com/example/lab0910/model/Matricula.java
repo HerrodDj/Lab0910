@@ -1,6 +1,8 @@
 package com.example.lab0910.model;
 
-public class Matricula {
+import java.io.Serializable;
+
+public class Matricula implements Serializable {
 
 
     private String idCurso;

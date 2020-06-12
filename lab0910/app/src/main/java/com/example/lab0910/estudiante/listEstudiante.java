@@ -1,16 +1,128 @@
 package com.example.lab0910.estudiante;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+
+import com.example.lab0910.BaseDatos.DataBase;
+import com.example.lab0910.curso.AddCurso;
+import com.example.lab0910.curso.ListCurso;
+import com.example.lab0910.data.adapter.AdapterCurso;
+import com.example.lab0910.data.adapter.AdapterEstudiante;
+import com.example.lab0910.data.helper.cursoHelper;
+import com.example.lab0910.data.helper.estudianteHelper;
+import com.example.lab0910.model.Curso;
+import com.example.lab0910.model.Usuario;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.View;
+
 import com.example.lab0910.R;
 
+import java.util.ArrayList;
 
-public class listEstudiante extends AppCompatActivity {
+public class listEstudiante extends AppCompatActivity implements AdapterEstudiante.AdapterEstudianteListener, estudianteHelper.RecyclerItemTouchHelperListener{
+    private RecyclerView rVLC;
+    private AdapterEstudiante adapterEst;
+    private ArrayList<Usuario> listaC;
+    private CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_estudiante);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addEstudiante();
+            }
+        });
+
+        coordinatorLayout=findViewById(R.id.coordinator_layout);
+        rVLC = findViewById(R.id.recyclerViewEst);
+        rVLC.setItemAnimator(new DefaultItemAnimator());
+        rVLC.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        LinearLayoutManager LL = new LinearLayoutManager(this);
+        rVLC.setLayoutManager(LL);
+
+        listaC = (ArrayList<Usuario>) DataBase.getInstancia(listEstudiante.this).listarTodoEstudiante();
+        adapterEst = new AdapterEstudiante(listaC, this);
+        rVLC.setAdapter(adapterEst);
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new estudianteHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rVLC);
+
+        adapterEst.notifyDataSetChanged();
+    }
+
+
+
+    private void addEstudiante(){
+        Intent intent = new Intent(this, AddEstudiante.class);
+        intent.putExtra("editable", false);
+        startActivity(intent);
+    }
+
+
+
+    @Override
+    public void onContactSelected(Usuario usuario) {
+
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (direction == ItemTouchHelper.START) {
+            if (viewHolder instanceof AdapterEstudiante.MyViewHolder) {
+                // get the removed item name to display it in snack bar
+                String name = listaC.get(viewHolder.getAdapterPosition()).getId();
+
+                // save the index deleted
+                final int deletedIndex = viewHolder.getAdapterPosition();
+                // remove the item from recyclerView
+                adapterEst.removeItem(viewHolder.getAdapterPosition());
+
+                // showing snack bar with Undo option
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, name + " removido!", Snackbar.LENGTH_LONG);
+                snackbar.setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // undo is selected, restore the deleted item from adapter
+                        adapterEst.restoreItem(deletedIndex);
+                    }
+                });
+                snackbar.setActionTextColor(Color.YELLOW);
+                snackbar.show();
+            }
+        } else {
+            //If is editing a row object
+            Usuario aux = adapterEst.getSwipedItem(viewHolder.getAdapterPosition());
+            //send data to Edit Activity
+            Intent intent = new Intent(this, AddEstudiante.class);
+            intent.putExtra("editable", true);
+            intent.putExtra("user", aux);
+            adapterEst.notifyDataSetChanged(); //restart left swipe view
+            startActivity(intent);
+        }
+
+    }
+
+    @Override
+    public void onItemMove(int source, int target) {
+        adapterEst.onItemMove(source, target);
+
     }
 }
