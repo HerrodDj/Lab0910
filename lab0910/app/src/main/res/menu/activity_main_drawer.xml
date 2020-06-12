@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/misCursos"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/mis_cursos">
+        <menu android:checkableBehavior="single" >
+            <item android:id="@+id/matricular"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/matricular" />
+
+            <item android:id="@+id/listMatriculados"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/cursosMatriculados"/>
+
+            <item android:id="@+id/Cursos"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="@string/cursos" />
+
+        </menu>
+        </item>
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/estudiantes" />
+    </group>
+</menu>

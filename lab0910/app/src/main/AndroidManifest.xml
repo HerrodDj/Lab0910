@@ -10,22 +10,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".principalMenu"
+            android:label="@string/title_activity_principal_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".curso.ListCurso"
             android:label="@string/title_activity_list_curso"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".estudiante.AddEstudiante" />
         <activity android:name=".estudiante.listEstudiante" />
         <activity android:name=".curso.AddCurso" />
         <activity android:name=".MainActivity">
+        </activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+
+
     </application>
 
 </manifest>
