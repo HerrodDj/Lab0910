@@ -8,6 +8,7 @@ import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.lab0910.R;
+import com.example.lab0910.curso.ListCurso;
 import com.example.lab0910.model.Curso;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ public class AdapterCurso extends RecyclerView.Adapter<AdapterCurso.MyViewHolder
     private ArrayList<Curso> cursosList;
     private ArrayList<Curso> cursosListFiltered;
     private Curso deletedItem;
+    private AdapterCursoListener listener;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title1, title2, description;
@@ -35,12 +37,20 @@ public class AdapterCurso extends RecyclerView.Adapter<AdapterCurso.MyViewHolder
             viewBackgroundDelete = view.findViewById(R.id.view_background_delete);
             viewBackgroundEdit = view.findViewById(R.id.view_background_edit);
             viewForeground = view.findViewById(R.id.view_foreground);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // send selected contact in callback
+                    listener.onContactSelected(cursosListFiltered.get(getAdapterPosition()));
+                }
+            });
         }
     }
 
-    public AdapterCurso(ArrayList<Curso> cursosList) {
+    public AdapterCurso(ArrayList<Curso> cursosList, AdapterCursoListener listener) {
         this.cursosList = cursosList;
         this.cursosListFiltered = cursosList;
+        this.listener=listener;
     }
 
     @Override
@@ -57,7 +67,7 @@ public class AdapterCurso extends RecyclerView.Adapter<AdapterCurso.MyViewHolder
         final Curso curso = cursosListFiltered.get(position);
         holder.title1.setText(curso.getId());
         holder.title2.setText(curso.getDescripcion());
-        holder.description.setText(curso.getCreditos());
+        holder.description.setText(String.valueOf(curso.getCreditos()));
     }
 
     @Override
@@ -152,5 +162,9 @@ public class AdapterCurso extends RecyclerView.Adapter<AdapterCurso.MyViewHolder
                 notifyDataSetChanged();
             }
         };
+    }
+
+    public interface AdapterCursoListener {
+        void onContactSelected(Curso curso);
     }
 }
