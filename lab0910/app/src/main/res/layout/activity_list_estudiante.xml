@@ -4,17 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-
-
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/button_link"
-        android:text="Estudiante"
-        />
-
+    tools:context=".estudiante.listEstudiante">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
