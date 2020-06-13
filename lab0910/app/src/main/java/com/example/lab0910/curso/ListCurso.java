@@ -94,6 +94,8 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
                 adapterCurso.removeItem(viewHolder.getAdapterPosition());
 
                 // showing snack bar with Undo option
+
+                if(DataBase.getInstancia(ListCurso.this).deleteCurso(name)){
                 Snackbar snackbar = Snackbar.make(coordinatorLayout, name + " removido!", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
@@ -104,6 +106,7 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
                 });
                 snackbar.setActionTextColor(Color.YELLOW);
                 snackbar.show();
+                }
             }
         } else {
             //If is editing a row object
