@@ -139,6 +139,28 @@ public class DataBase extends SQLiteOpenHelper {
         return db.update( CURSO_TABLE ,cv,COLUMN_ID_CUR+"=?",new String[]{curso.getId()}) > 0;
     }
 
+
+    public Curso getCurso(String idcur){
+        Curso curso = null;
+        String queryString = "SELECT * FROM " +CURSO_TABLE+
+                " WHERE "+ CURSO_TABLE+"."+ COLUMN_ID_CUR +" = "+"'"+idcur+"'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){
+            String id = cursor.getString(0);
+            String descripcion = cursor.getString(1);
+            int creditos = cursor.getInt(5);
+            curso = new Curso(id, descripcion, creditos);
+        }
+
+        cursor.close();
+        db.close();
+        return curso;
+    }
+
+
+
     // CRUD para Usuarios
     public boolean insertar(Usuario usuario){
         SQLiteDatabase db= this.getWritableDatabase();
@@ -333,8 +355,6 @@ public class DataBase extends SQLiteOpenHelper {
         else{return false;}
     }
 
-    
-
 
 //Son los cursos que estan disponibles para matricular
     public List<Curso> disponiblesMatricula(String idEst){
@@ -354,14 +374,11 @@ public class DataBase extends SQLiteOpenHelper {
                 Curso curso = new Curso(id,descripcion,creditos);
                 list.add(curso);
             }while (cursor.moveToNext());
-
         }
 
         cursor.close();
         db.close();
         return list;
-
-
     }
 
 

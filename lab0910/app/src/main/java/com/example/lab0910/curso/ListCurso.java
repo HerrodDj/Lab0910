@@ -9,6 +9,7 @@ import com.example.lab0910.BaseDatos.DataBase;
 import com.example.lab0910.data.adapter.AdapterCurso;
 import com.example.lab0910.data.helper.cursoHelper;
 import com.example.lab0910.estudiante.AddEstudiante;
+import com.example.lab0910.estudiante.listEstudiante;
 import com.example.lab0910.model.Curso;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.lab0910.R;
 
@@ -106,6 +108,9 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
                 });
                 snackbar.setActionTextColor(Color.YELLOW);
                 snackbar.show();
+                }
+                else{
+                    Toast.makeText(ListCurso.this, "No se ha podidio eliminar",Toast.LENGTH_SHORT).show();
                 }
             }
         } else {

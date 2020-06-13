@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".matricula.listMatriculados"
+            android:label="@string/title_activity_list_matriculados"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".estudiante.listEstudiante"
             android:label="@string/title_activity_list_estudiante"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".principalMenu"
             android:label="@string/title_activity_principal_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".curso.ListCurso"
             android:label="@string/title_activity_list_curso"
