@@ -51,7 +51,7 @@
     <string name="matricular">Matricular Curso</string>
     <string name="cursosMatriculados">Cursos Matriculados</string>
     <string name="title_activity_list_estudiante">listEstudiante</string>
-    <string name="title_activity_list_matriculados">listMatriculados</string>
+    <string name="title_activity_list_matricular">listMatricular</string>
 
 
 </resources>

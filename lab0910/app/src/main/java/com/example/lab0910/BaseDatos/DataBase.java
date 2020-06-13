@@ -357,12 +357,12 @@ public class DataBase extends SQLiteOpenHelper {
 
 
 //Son los cursos que estan disponibles para matricular
-    public List<Curso> disponiblesMatricula(String idEst){
+    public List<Curso> listCursosDisponiblesMatricula(String idEst){
         List<Curso> list = new ArrayList<>();
         String queryString = "SELECT "+ COLUMN_ID_CUR+" , "+ COLUMN_DESCRIPCION_CUR+" , "+ COLUMN_CREDITOS_CUR+ " FROM  " +CURSO_TABLE
         + " EXCEPT SELECT " + COLUMN_ID_CUR+" , " +COLUMN_DESCRIPCION_CUR+" , "+ COLUMN_CREDITOS_CUR + " FROM " + CURSO_TABLE
-        +" , "+ MATRICULA_TABLE + "WHERE" + CURSO_TABLE + "." + COLUMN_ID_CUR + " = " + MATRICULA_TABLE+"."+ COLUMN_ID_CURSO
-        +"AND" + MATRICULA_TABLE+"."+COLUMN_ID_USUARIO +"='" +idEst+"'";
+        +" , "+ MATRICULA_TABLE + " WHERE " + CURSO_TABLE + "." + COLUMN_ID_CUR + " = " + MATRICULA_TABLE+"."+ COLUMN_ID_CURSO
+        +" AND " + MATRICULA_TABLE+"."+COLUMN_ID_USUARIO +"='" +idEst+"'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);

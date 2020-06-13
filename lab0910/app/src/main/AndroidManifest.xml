@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".matricula.listMatriculados"
-            android:label="@string/title_activity_list_matriculados"
+            android:name=".matricula.listMatricular"
+            android:label="@string/title_activity_list_matricular"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".estudiante.listEstudiante"
