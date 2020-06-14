@@ -51,6 +51,7 @@ public class AddEstudiante extends AppCompatActivity {
                 nombreEst.setText(aux.getNombre());
                 apellidosEst.setText(aux.getApellido());
                 edadEst.setText(String.valueOf(aux.getEdad()));
+                passwordEst.setText(aux.getPassword());
                 //edit action
                 addEst.setOnClickListener(new View.OnClickListener() {
                     @Override
