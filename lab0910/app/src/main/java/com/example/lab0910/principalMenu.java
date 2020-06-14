@@ -39,9 +39,7 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View view) {logOut();
             }
         });
 
@@ -145,5 +143,8 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
     }
 
     private void logOut() {
+        finish();
+        Intent a = new Intent(this, MainActivity.class);
+        startActivity(a);
     }
 }

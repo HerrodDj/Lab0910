@@ -4,15 +4,14 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/Estudiante"
-            android:icon="@drawable/ic_menu_camera"
             android:title="@string/Text_Est">
         <menu android:checkableBehavior="single" >
             <item android:id="@+id/matricular"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_registro"
             android:title="@string/matricular" />
 
             <item android:id="@+id/listMatriculados"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_lista_de_verificacion"
             android:title="@string/cursosMatriculados"/>
 
         </menu>
@@ -20,15 +19,14 @@
 
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/Administrador"
             >
             <menu android:checkableBehavior="single" >
                 <item android:id="@+id/Cursos"
-                    android:icon="@drawable/ic_menu_camera"
+                    android:icon="@drawable/ic_formacion"
                     android:title="@string/cursos" />
                 <item android:id="@+id/Estudiantes"
-                    android:icon="@drawable/ic_menu_camera"
+                    android:icon="@drawable/ic_estudiante"
                     android:title="@string/Estudiantes" />
             </menu>
         </item>
