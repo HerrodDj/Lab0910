@@ -99,7 +99,8 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
 
                 // showing snack bar with Undo option
 
-                if(DataBase.getInstancia(ListCurso.this).deleteCurso(name)){
+                if(DataBase.getInstancia(ListCurso.this).deleteCurso(name)
+                        && DataBase.getInstancia(ListCurso.this).deleteCurso(name)){
                 Snackbar snackbar = Snackbar.make(coordinatorLayout, name + " removido!", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
