@@ -9,6 +9,7 @@ import android.view.Menu;
 import com.example.lab0910.curso.AddCurso;
 import com.example.lab0910.curso.ListCurso;
 import com.example.lab0910.estudiante.listEstudiante;
+import com.example.lab0910.matricula.ListMatriculados;
 import com.example.lab0910.matricula.listMatricular;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -102,7 +103,7 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
         if (id == R.id.matricular) {
             matricular();
         }else if (id == R.id.listMatriculados) {
-
+            matriculados();
         }else if(id==R.id.Cursos){
             cursos();
         }
@@ -137,9 +138,9 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
 
     private void matriculados(){
         finish();
-        //Intent a = new Intent(this, listMatriculados.class);
-        //a.putExtra("idSesion", idSesion);
-
+        Intent a = new Intent(this, ListMatriculados.class);
+        a.putExtra("idSesion", idSesion);
+        startActivity(a);
 
     }
 

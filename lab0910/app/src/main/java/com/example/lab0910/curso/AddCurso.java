@@ -120,4 +120,16 @@ public class AddCurso extends AppCompatActivity {
     }
 
 
+
+    @Override
+    public void onBackPressed() { //TODO it's not working yet
+        /*if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }*/
+        Intent a = new Intent(this, AddCurso.class);
+        startActivity(a);
+        super.onBackPressed();
+    }
+
 }

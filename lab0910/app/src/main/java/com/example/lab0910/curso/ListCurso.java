@@ -10,6 +10,7 @@ import com.example.lab0910.data.adapter.AdapterCurso;
 import com.example.lab0910.data.helper.cursoHelper;
 import com.example.lab0910.estudiante.AddEstudiante;
 import com.example.lab0910.estudiante.listEstudiante;
+import com.example.lab0910.matricula.ListMatriculados;
 import com.example.lab0910.model.Curso;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -129,4 +130,17 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
     public void onItemMove(int source, int target) {
         adapterCurso.onItemMove(source, target);
     }
+
+
+    @Override
+    public void onBackPressed() { //TODO it's not working yet
+        /*if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }*/
+        Intent a = new Intent(this, ListCurso.class);
+        startActivity(a);
+        super.onBackPressed();
+    }
+
 }

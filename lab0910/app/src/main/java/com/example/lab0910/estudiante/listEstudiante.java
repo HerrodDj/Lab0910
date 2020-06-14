@@ -131,6 +131,18 @@ public class listEstudiante extends AppCompatActivity implements AdapterEstudian
     @Override
     public void onItemMove(int source, int target) {
         adapterEst.onItemMove(source, target);
-
     }
+
+
+    @Override
+    public void onBackPressed() { //TODO it's not working yet
+        /*if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }*/
+        Intent a = new Intent(this, listEstudiante.class);
+        startActivity(a);
+        super.onBackPressed();
+    }
+
 }

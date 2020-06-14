@@ -52,6 +52,7 @@
     <string name="cursosMatriculados">Cursos Matriculados</string>
     <string name="title_activity_list_estudiante">listEstudiante</string>
     <string name="title_activity_list_matricular">listMatricular</string>
+    <string name="title_activity_list_matriculados">ListMatriculados</string>
 
 
 </resources>

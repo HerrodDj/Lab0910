@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.lab0910.BaseDatos.DataBase;
 import com.example.lab0910.data.adapter.AdapterCurso;
 import com.example.lab0910.data.helper.cursoHelper;
+import com.example.lab0910.data.helper.desmatricularCursoHelper;
 import com.example.lab0910.data.helper.matricularCursoHelper;
 import com.example.lab0910.model.Curso;
 import com.example.lab0910.model.Matricula;
@@ -29,8 +30,10 @@ import android.widget.Toast;
 import com.example.lab0910.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class listMatricular extends AppCompatActivity  implements AdapterCurso.AdapterCursoListener, cursoHelper.RecyclerItemTouchHelperListener {
+public class ListMatriculados extends AppCompatActivity implements AdapterCurso.AdapterCursoListener, cursoHelper.RecyclerItemTouchHelperListener {
+
 
     private RecyclerView rVLC;
     private AdapterCurso adapterCurso;
@@ -42,28 +45,27 @@ public class listMatricular extends AppCompatActivity  implements AdapterCurso.A
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_matricular);
+        setContentView(R.layout.activity_list_matriculados);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        coordinatorLayout=findViewById(R.id.coordinator_layout);
+        coordinatorLayout = findViewById(R.id.coordinator_layout);
 
-        idSesion=(String) getIntent().getSerializableExtra("idSesion");
+        idSesion = (String) getIntent().getSerializableExtra("idSesion");
 
         rVLC = findViewById(R.id.recyclerViewCursos);
         rVLC.setItemAnimator(new DefaultItemAnimator());
-        rVLC.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+        rVLC.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         LinearLayoutManager LL = new LinearLayoutManager(this);
         rVLC.setLayoutManager(LL);
 
 
-
-        listaC = (ArrayList<Curso>) DataBase.getInstancia(listMatricular.this).listCursosDisponiblesMatricula(idSesion);
-        adapterCurso = new AdapterCurso(listaC, this);
+        listaC = (ArrayList<Curso>) DataBase.getInstancia(ListMatriculados.this).listCursosMatPorEstudiante(idSesion);
+        adapterCurso = new AdapterCurso(listaC, ListMatriculados.this);
         rVLC.setAdapter(adapterCurso);
         adapterCurso.notifyDataSetChanged();
 
         //Despues, verificar con un if
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new matricularCursoHelper(0,  ItemTouchHelper.RIGHT, this);
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new desmatricularCursoHelper(0, ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rVLC);
 
 
@@ -85,23 +87,23 @@ public class listMatricular extends AppCompatActivity  implements AdapterCurso.A
     @Override
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction, int position) {
         final Curso aux = adapterCurso.getSwipedItem(viewHolder.getAdapterPosition());
-        idSesion=(String) getIntent().getSerializableExtra("idSesion");
-        new AlertDialog.Builder(listMatricular.this)
-                .setTitle("Desea matricular el curso")
+        idSesion = (String) getIntent().getSerializableExtra("idSesion");
+        new AlertDialog.Builder(ListMatriculados.this)
+                .setTitle("Desea desmatricular el curso")
                 .setMessage(aux.toString())
-       .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Continue with delete operation
-                        try{
-                            if(DataBase.getInstancia(listMatricular.this).insertar(new Matricula(aux.getId(),idSesion))){
-                                Toast.makeText(listMatricular.this, "Se ha matriculado en el curso: "+ aux.toString(), Toast.LENGTH_SHORT).show();
+                        try {
+                            if (DataBase.getInstancia(ListMatriculados.this).delete(new Matricula(aux.getId(), idSesion))) {
+                                Toast.makeText(ListMatriculados.this, "Seguro de que desea desmatricular el curso: " + aux.toString(), Toast.LENGTH_SHORT).show();
                                 adapterCurso.removeItem(viewHolder.getAdapterPosition());
 
-                            }else{
-                                Toast.makeText(listMatricular.this, "No se ha matriculado ", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(ListMatriculados.this, "No se ha desmatriculado ", Toast.LENGTH_SHORT).show();
                             }
-                        }catch (Exception e){
-                                   Toast.makeText(listMatricular.this, "Algo salio mal ", Toast.LENGTH_SHORT).show();
+                        } catch (Exception e) {
+                            Toast.makeText(ListMatriculados.this, "Algo salio mal ", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
@@ -112,13 +114,11 @@ public class listMatricular extends AppCompatActivity  implements AdapterCurso.A
                 .show();
 
 
-
-
     }
 
     @Override
     public void onItemMove(int source, int target) {
-            adapterCurso.onItemMove(source, target);
+        adapterCurso.onItemMove(source, target);
     }
 
 
@@ -128,9 +128,11 @@ public class listMatricular extends AppCompatActivity  implements AdapterCurso.A
             searchView.setIconified(true);
             return;
         }*/
-        Intent a = new Intent(this, listMatricular.class);
+        Intent a = new Intent(this, ListMatriculados.class);
         startActivity(a);
         super.onBackPressed();
     }
 
+
 }
+

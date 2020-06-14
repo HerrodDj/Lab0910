@@ -322,9 +322,9 @@ public class DataBase extends SQLiteOpenHelper {
 
         List<Curso> list = new ArrayList<>();
         String queryString = "SELECT "+ COLUMN_ID_CUR+" , "+ COLUMN_DESCRIPCION_CUR+" , "+
-        COLUMN_CREDITOS_CUR + " FROM " +CURSO_TABLE+ "," + MATRICULA_TABLE +
+        COLUMN_CREDITOS_CUR + " FROM " +CURSO_TABLE+ " , " + MATRICULA_TABLE +
                 " WHERE "+ CURSO_TABLE+"."+COLUMN_ID_CUR + " = " + MATRICULA_TABLE+"."+COLUMN_ID_CURSO+
-        "AND"+ MATRICULA_TABLE+"."+COLUMN_ID_USUARIO +"= '"+ idEst+"'";
+        " AND "+ MATRICULA_TABLE+"."+COLUMN_ID_USUARIO +"= '"+ idEst+"'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);
@@ -348,11 +348,11 @@ public class DataBase extends SQLiteOpenHelper {
     public boolean delete(Matricula matricula){
         SQLiteDatabase db = this.getReadableDatabase();
         String queryString = "DELETE FROM " + MATRICULA_TABLE +
-                " WHERE " +COLUMN_ID_CURSO+" = "+ matricula.getIdCurso()
-                +" AND "+ COLUMN_ID_USUARIO+" = "+ matricula.getIdEstudiante() ;
+                " WHERE " +COLUMN_ID_CURSO+" = '"+ matricula.getIdCurso()+"'"
+                +" AND "+ COLUMN_ID_USUARIO+" = '"+ matricula.getIdEstudiante()+"'" ;
         Cursor cursor = db.rawQuery(queryString,null);
-        if(cursor.moveToFirst()){return true;}
-        else{return false;}
+        if(cursor.moveToFirst()){return false;}
+        else{return true;}
     }
 
 

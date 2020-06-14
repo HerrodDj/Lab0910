@@ -132,4 +132,17 @@ public class AddEstudiante extends AppCompatActivity {
         }
         return true;
     }
+
+
+    @Override
+    public void onBackPressed() { //TODO it's not working yet
+        /*if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }*/
+        Intent a = new Intent(this, AddEstudiante.class);
+        startActivity(a);
+        super.onBackPressed();
+    }
+
 }
