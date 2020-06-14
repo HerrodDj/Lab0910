@@ -6,11 +6,13 @@ import android.os.Bundle;
 
 import com.example.lab0910.BaseDatos.DataBase;
 import com.example.lab0910.data.adapter.AdapterCurso;
+import com.example.lab0910.data.adapter.AdapterMatriculados;
 import com.example.lab0910.data.helper.cursoHelper;
 import com.example.lab0910.data.helper.desmatricularCursoHelper;
 import com.example.lab0910.data.helper.matricularCursoHelper;
 import com.example.lab0910.model.Curso;
 import com.example.lab0910.model.Matricula;
+import com.example.lab0910.principalMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -32,11 +34,11 @@ import com.example.lab0910.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListMatriculados extends AppCompatActivity implements AdapterCurso.AdapterCursoListener, cursoHelper.RecyclerItemTouchHelperListener {
+public class ListMatriculados extends AppCompatActivity implements AdapterMatriculados.AdapterMatriculadosListener, desmatricularCursoHelper.RecyclerItemTouchHelperListener {
 
 
     private RecyclerView rVLC;
-    private AdapterCurso adapterCurso;
+    private AdapterMatriculados adapterCurso;
     private ArrayList<Curso> listaC;
     private CoordinatorLayout coordinatorLayout;
     static String idSesion;
@@ -60,7 +62,7 @@ public class ListMatriculados extends AppCompatActivity implements AdapterCurso.
 
 
         listaC = (ArrayList<Curso>) DataBase.getInstancia(ListMatriculados.this).listCursosMatPorEstudiante(idSesion);
-        adapterCurso = new AdapterCurso(listaC, ListMatriculados.this);
+        adapterCurso = new AdapterMatriculados(listaC, this);
         rVLC.setAdapter(adapterCurso);
         adapterCurso.notifyDataSetChanged();
 
@@ -128,7 +130,7 @@ public class ListMatriculados extends AppCompatActivity implements AdapterCurso.
             searchView.setIconified(true);
             return;
         }*/
-        Intent a = new Intent(this, ListMatriculados.class);
+        Intent a = new Intent(this, principalMenu.class);
         startActivity(a);
         super.onBackPressed();
     }

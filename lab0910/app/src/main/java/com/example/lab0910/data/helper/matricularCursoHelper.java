@@ -12,16 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lab0910.data.adapter.AdapterCurso;
+import com.example.lab0910.data.adapter.AdapterMatricula;
+
 
 public class matricularCursoHelper  extends ItemTouchHelper.SimpleCallback{
-    private cursoHelper.RecyclerItemTouchHelperListener listener;
+    private matricularCursoHelper.RecyclerItemTouchHelperListener listener;
     private View foregroundView;
     private View backgroundViewEdit;
     private View backgroundViewDelete;
     private int dragColor = Color.rgb(102, 102, 255);
 
-    public matricularCursoHelper(int dragDirs, int swipeDirs, cursoHelper.RecyclerItemTouchHelperListener listener) {
+    public matricularCursoHelper(int dragDirs, int swipeDirs, matricularCursoHelper.RecyclerItemTouchHelperListener listener) {
         super(dragDirs, swipeDirs);
         this.listener = listener;
     }
@@ -49,9 +50,9 @@ public class matricularCursoHelper  extends ItemTouchHelper.SimpleCallback{
         if (viewHolder != null) {
             //check adapter
             if (this.listener.getClass().getSimpleName().equals("listMatricular")) {
-                backgroundViewEdit = ((AdapterCurso.MyViewHolder) viewHolder).viewBackgroundEdit;
-                backgroundViewDelete = ((AdapterCurso.MyViewHolder) viewHolder).viewBackgroundDelete;
-                foregroundView = ((AdapterCurso.MyViewHolder) viewHolder).viewForeground;
+                backgroundViewEdit = ((AdapterMatricula.MyViewHolder) viewHolder).viewBackgroundEdit;
+                backgroundViewDelete = ((AdapterMatricula.MyViewHolder) viewHolder).viewBackgroundDelete;
+                foregroundView = ((AdapterMatricula.MyViewHolder) viewHolder).viewForeground;
             }
             //Selected item
             if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {

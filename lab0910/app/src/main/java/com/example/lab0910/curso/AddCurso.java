@@ -127,7 +127,7 @@ public class AddCurso extends AppCompatActivity {
             searchView.setIconified(true);
             return;
         }*/
-        Intent a = new Intent(this, AddCurso.class);
+        Intent a = new Intent(this, ListCurso.class);
         startActivity(a);
         super.onBackPressed();
     }

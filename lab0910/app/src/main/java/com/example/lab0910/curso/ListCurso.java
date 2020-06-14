@@ -12,6 +12,7 @@ import com.example.lab0910.estudiante.AddEstudiante;
 import com.example.lab0910.estudiante.listEstudiante;
 import com.example.lab0910.matricula.ListMatriculados;
 import com.example.lab0910.model.Curso;
+import com.example.lab0910.principalMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -138,7 +139,7 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
             searchView.setIconified(true);
             return;
         }*/
-        Intent a = new Intent(this, ListCurso.class);
+        Intent a = new Intent(this, principalMenu.class);
         startActivity(a);
         super.onBackPressed();
     }

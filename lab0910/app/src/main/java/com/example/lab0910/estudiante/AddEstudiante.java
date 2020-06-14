@@ -140,7 +140,7 @@ public class AddEstudiante extends AppCompatActivity {
             searchView.setIconified(true);
             return;
         }*/
-        Intent a = new Intent(this, AddEstudiante.class);
+        Intent a = new Intent(this, listEstudiante.class);
         startActivity(a);
         super.onBackPressed();
     }
