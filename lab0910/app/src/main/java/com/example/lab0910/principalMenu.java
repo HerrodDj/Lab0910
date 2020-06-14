@@ -9,6 +9,8 @@ import android.view.Menu;
 import com.example.lab0910.curso.AddCurso;
 import com.example.lab0910.curso.ListCurso;
 import com.example.lab0910.estudiante.listEstudiante;
+import com.example.lab0910.matricula.ListMatriculados;
+import com.example.lab0910.matricula.listMatricular;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -37,9 +39,7 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View view) {logOut();
             }
         });
 
@@ -99,9 +99,9 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.matricular) {
-            logOut();
+            matricular();
         }else if (id == R.id.listMatriculados) {
-            carreras();
+            matriculados();
         }else if(id==R.id.Cursos){
             cursos();
         }
@@ -125,12 +125,26 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
         startActivity(a);
     }
 
-    private void carreras() {
+    private void matricular() {
         finish();
-        Intent a = new Intent(this, AddCurso.class);
+        Intent a = new Intent(this, listMatricular.class);
+        a.putExtra("idSesion", idSesion);
+
+
         startActivity(a);
     }
 
+    private void matriculados(){
+        finish();
+        Intent a = new Intent(this, ListMatriculados.class);
+        a.putExtra("idSesion", idSesion);
+        startActivity(a);
+
+    }
+
     private void logOut() {
+        finish();
+        Intent a = new Intent(this, MainActivity.class);
+        startActivity(a);
     }
 }

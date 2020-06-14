@@ -116,10 +116,19 @@ public class DataBase extends SQLiteOpenHelper {
 
     public boolean delete(Curso curso){
         SQLiteDatabase db = this.getReadableDatabase();
-        String queryString = "DELETE FROM " + CURSO_TABLE + " WHERE " +COLUMN_ID_CUR +" = "+ curso.getId() ;
+        String queryString = "DELETE FROM " + CURSO_TABLE + " WHERE " +COLUMN_ID_CUR +" = '"+ curso.getId()+"'" ;
         Cursor cursor = db.rawQuery(queryString,null);
-        if(cursor.moveToFirst()){return true;}
-        else{return false;}
+        if(cursor.moveToFirst()){
+            return false;}
+        else{return true;}
+    }
+
+    public boolean deleteCurso(String id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "DELETE FROM " + CURSO_TABLE + " WHERE " +COLUMN_ID_CUR +" = '"+ id+"'" ;
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){return false;}
+        else{return true;}
     }
 
     public boolean update(Curso curso){
@@ -129,6 +138,28 @@ public class DataBase extends SQLiteOpenHelper {
         cv.put(COLUMN_CREDITOS_CUR ,curso.getCreditos());
         return db.update( CURSO_TABLE ,cv,COLUMN_ID_CUR+"=?",new String[]{curso.getId()}) > 0;
     }
+
+
+    public Curso getCurso(String idcur){
+        Curso curso = null;
+        String queryString = "SELECT * FROM " +CURSO_TABLE+
+                " WHERE "+ CURSO_TABLE+"."+ COLUMN_ID_CUR +" = "+"'"+idcur+"'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){
+            String id = cursor.getString(0);
+            String descripcion = cursor.getString(1);
+            int creditos = cursor.getInt(5);
+            curso = new Curso(id, descripcion, creditos);
+        }
+
+        cursor.close();
+        db.close();
+        return curso;
+    }
+
+
 
     // CRUD para Usuarios
     public boolean insertar(Usuario usuario){
@@ -201,11 +232,20 @@ public class DataBase extends SQLiteOpenHelper {
 
     public boolean delete(Usuario usuario){
         SQLiteDatabase db = this.getReadableDatabase();
-        String queryString = "DELETE FROM " + USUARIO_TABLE + " WHERE " +COLUMN_ID_USER +" = "+ usuario.getId() ;
+        String queryString = "DELETE FROM " + USUARIO_TABLE + " WHERE " +COLUMN_ID_USER +" = '"+ usuario.getId()+"'" ;
         Cursor cursor = db.rawQuery(queryString,null);
-        if(cursor.moveToFirst()){return true;}
-        else{return false;}
+        if(cursor.moveToFirst()){return false;}
+        else{return true;}
     }
+
+    public boolean deleteUsuario(String idEst){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "DELETE FROM " + USUARIO_TABLE + " WHERE " +COLUMN_ID_USER +" = '"+idEst+"'" ;
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){return false;}
+        else{return true;}
+    }
+
 
 
     public boolean update(Usuario usuario){
@@ -220,6 +260,28 @@ public class DataBase extends SQLiteOpenHelper {
         return db.update( USUARIO_TABLE ,cv,COLUMN_ID_USER+"=?",new String[]{usuario.getId()}) > 0;
     }
 
+    public Usuario getUsuario(String idUser){
+        Usuario usuario = null;
+        String queryString = "SELECT * FROM " +USUARIO_TABLE+
+                " WHERE "+ USUARIO_TABLE+"."+ COLUMN_ID_USER +" = "+"'"+idUser+"'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){
+            String id = cursor.getString(0);
+            String nombre = cursor.getString(1);
+            String apellidos= cursor.getString(2);
+            String password= cursor.getString(3);
+            String role = cursor.getString(4);
+            int edad = cursor.getInt(5);
+            usuario = new Usuario(id,nombre, apellidos, password, role, edad);
+        }
+
+        cursor.close();
+        db.close();
+        return usuario;
+
+    }
     //CRUD PARA MATRICULA
     public boolean insertar(Matricula matricula){
         SQLiteDatabase db= this.getWritableDatabase();
@@ -255,12 +317,14 @@ public class DataBase extends SQLiteOpenHelper {
 
     }
 
+    //Esto lista los cursos matriculados por un x estudiante
     public List<Curso> listCursosMatPorEstudiante(String idEst){
 
         List<Curso> list = new ArrayList<>();
-        String queryString = "SELECT * FROM " +CURSO_TABLE+ "," + MATRICULA_TABLE +
-                " WHERE "+ MATRICULA_TABLE+"."+ COLUMN_ID_USUARIO +" = "+idEst +" AND "
-        + MATRICULA_TABLE+"."+COLUMN_ID_CURSO+" = "+ CURSO_TABLE+"."+COLUMN_ID_CUR;
+        String queryString = "SELECT "+ COLUMN_ID_CUR+" , "+ COLUMN_DESCRIPCION_CUR+" , "+
+        COLUMN_CREDITOS_CUR + " FROM " +CURSO_TABLE+ " , " + MATRICULA_TABLE +
+                " WHERE "+ CURSO_TABLE+"."+COLUMN_ID_CUR + " = " + MATRICULA_TABLE+"."+COLUMN_ID_CURSO+
+        " AND "+ MATRICULA_TABLE+"."+COLUMN_ID_USUARIO +"= '"+ idEst+"'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);
@@ -284,37 +348,39 @@ public class DataBase extends SQLiteOpenHelper {
     public boolean delete(Matricula matricula){
         SQLiteDatabase db = this.getReadableDatabase();
         String queryString = "DELETE FROM " + MATRICULA_TABLE +
-                " WHERE " +COLUMN_ID_CURSO+" = "+ matricula.getIdCurso()
-                +" AND "+ COLUMN_ID_USUARIO+" = "+ matricula.getIdEstudiante() ;
+                " WHERE " +COLUMN_ID_CURSO+" = '"+ matricula.getIdCurso()+"'"
+                +" AND "+ COLUMN_ID_USUARIO+" = '"+ matricula.getIdEstudiante()+"'" ;
         Cursor cursor = db.rawQuery(queryString,null);
-        if(cursor.moveToFirst()){return true;}
-        else{return false;}
+        if(cursor.moveToFirst()){return false;}
+        else{return true;}
     }
 
-    
 
-    public Usuario getUsuario(String idUser){
-        Usuario usuario = null;
-        String queryString = "SELECT * FROM " +USUARIO_TABLE+
-                " WHERE "+ USUARIO_TABLE+"."+ COLUMN_ID_USER +" = "+"'"+idUser+"'";
+//Son los cursos que estan disponibles para matricular
+    public List<Curso> listCursosDisponiblesMatricula(String idEst){
+        List<Curso> list = new ArrayList<>();
+        String queryString = "SELECT "+ COLUMN_ID_CUR+" , "+ COLUMN_DESCRIPCION_CUR+" , "+ COLUMN_CREDITOS_CUR+ " FROM  " +CURSO_TABLE
+        + " EXCEPT SELECT " + COLUMN_ID_CUR+" , " +COLUMN_DESCRIPCION_CUR+" , "+ COLUMN_CREDITOS_CUR + " FROM " + CURSO_TABLE
+        +" , "+ MATRICULA_TABLE + " WHERE " + CURSO_TABLE + "." + COLUMN_ID_CUR + " = " + MATRICULA_TABLE+"."+ COLUMN_ID_CURSO
+        +" AND " + MATRICULA_TABLE+"."+COLUMN_ID_USUARIO +"='" +idEst+"'";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);
         if(cursor.moveToFirst()){
-            String id = cursor.getString(0);
-            String nombre = cursor.getString(1);
-            String apellidos= cursor.getString(2);
-            String password= cursor.getString(3);
-            String role = cursor.getString(4);
-            int edad = cursor.getInt(5);
-            usuario = new Usuario(id,nombre, apellidos, password, role, edad);
+            do{
+                String id = cursor.getString(0);
+                String descripcion = cursor.getString(1);
+                int creditos = cursor.getInt(2);
+                Curso curso = new Curso(id,descripcion,creditos);
+                list.add(curso);
+            }while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
-        return usuario;
-
+        return list;
     }
+
 
 
 }

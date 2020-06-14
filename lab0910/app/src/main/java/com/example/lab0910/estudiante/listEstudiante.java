@@ -13,6 +13,7 @@ import com.example.lab0910.data.helper.cursoHelper;
 import com.example.lab0910.data.helper.estudianteHelper;
 import com.example.lab0910.model.Curso;
 import com.example.lab0910.model.Usuario;
+import com.example.lab0910.principalMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -26,6 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.lab0910.R;
 
@@ -43,15 +45,8 @@ public class listEstudiante extends AppCompatActivity implements AdapterEstudian
         setContentView(R.layout.activity_list_estudiante);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addEstudiante();
-            }
-        });
-
         coordinatorLayout=findViewById(R.id.coordinator_layout);
+
         rVLC = findViewById(R.id.recyclerViewEst);
         rVLC.setItemAnimator(new DefaultItemAnimator());
         rVLC.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
@@ -61,11 +56,20 @@ public class listEstudiante extends AppCompatActivity implements AdapterEstudian
         listaC = (ArrayList<Usuario>) DataBase.getInstancia(listEstudiante.this).listarTodoEstudiante();
         adapterEst = new AdapterEstudiante(listaC, this);
         rVLC.setAdapter(adapterEst);
+        adapterEst.notifyDataSetChanged();
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new estudianteHelper(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(rVLC);
 
         adapterEst.notifyDataSetChanged();
+        //Despues, verificar con un if
+        FloatingActionButton fab1 = findViewById(R.id.fab);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addEstudiante();
+            }
+        });
     }
 
 
@@ -96,6 +100,7 @@ public class listEstudiante extends AppCompatActivity implements AdapterEstudian
                 adapterEst.removeItem(viewHolder.getAdapterPosition());
 
                 // showing snack bar with Undo option
+                if(DataBase.getInstancia(listEstudiante.this).deleteUsuario(name)){
                 Snackbar snackbar = Snackbar.make(coordinatorLayout, name + " removido!", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
@@ -106,6 +111,10 @@ public class listEstudiante extends AppCompatActivity implements AdapterEstudian
                 });
                 snackbar.setActionTextColor(Color.YELLOW);
                 snackbar.show();
+                }
+                else{
+                    Toast.makeText(listEstudiante.this, "No se ha podidio eliminar",Toast.LENGTH_SHORT).show();
+                }
             }
         } else {
             //If is editing a row object
@@ -123,6 +132,18 @@ public class listEstudiante extends AppCompatActivity implements AdapterEstudian
     @Override
     public void onItemMove(int source, int target) {
         adapterEst.onItemMove(source, target);
-
     }
+
+
+    @Override
+    public void onBackPressed() { //TODO it's not working yet
+        /*if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }*/
+        Intent a = new Intent(this, principalMenu.class);
+        startActivity(a);
+        super.onBackPressed();
+    }
+
 }

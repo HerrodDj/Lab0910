@@ -44,13 +44,17 @@
 
     <string name="Administrador">Administrador</string>
     <string name="Estudiantes">Estudiantes</string>
-
+    <string name="bienvenido">Bienvenido</string>
     <string name="mis_cursos">Mis Cursos</string>
     <string name="Text_Est">Estudiante</string>
     <string name="cursos">Cursos</string>
     <string name="matricular">Matricular Curso</string>
     <string name="cursosMatriculados">Cursos Matriculados</string>
+    <string name="mat">Matricular</string>
+    <string name="desmat">Desmatricular</string>
     <string name="title_activity_list_estudiante">listEstudiante</string>
+    <string name="title_activity_list_matricular">listMatricular</string>
+    <string name="title_activity_list_matriculados">ListMatriculados</string>
 
 
 </resources>

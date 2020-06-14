@@ -9,7 +9,10 @@ import com.example.lab0910.BaseDatos.DataBase;
 import com.example.lab0910.data.adapter.AdapterCurso;
 import com.example.lab0910.data.helper.cursoHelper;
 import com.example.lab0910.estudiante.AddEstudiante;
+import com.example.lab0910.estudiante.listEstudiante;
+import com.example.lab0910.matricula.ListMatriculados;
 import com.example.lab0910.model.Curso;
+import com.example.lab0910.principalMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -24,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.lab0910.R;
 
@@ -94,6 +98,8 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
                 adapterCurso.removeItem(viewHolder.getAdapterPosition());
 
                 // showing snack bar with Undo option
+
+                if(DataBase.getInstancia(ListCurso.this).deleteCurso(name)){
                 Snackbar snackbar = Snackbar.make(coordinatorLayout, name + " removido!", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
@@ -104,6 +110,10 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
                 });
                 snackbar.setActionTextColor(Color.YELLOW);
                 snackbar.show();
+                }
+                else{
+                    Toast.makeText(ListCurso.this, "No se ha podidio eliminar",Toast.LENGTH_SHORT).show();
+                }
             }
         } else {
             //If is editing a row object
@@ -121,4 +131,17 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
     public void onItemMove(int source, int target) {
         adapterCurso.onItemMove(source, target);
     }
+
+
+    @Override
+    public void onBackPressed() { //TODO it's not working yet
+        /*if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }*/
+        Intent a = new Intent(this, principalMenu.class);
+        startActivity(a);
+        super.onBackPressed();
+    }
+
 }
