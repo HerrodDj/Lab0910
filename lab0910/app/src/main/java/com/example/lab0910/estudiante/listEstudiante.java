@@ -101,14 +101,6 @@ public class listEstudiante extends AppCompatActivity implements AdapterEstudian
                 // showing snack bar with Undo option
                 if(DataBase.getInstancia(listEstudiante.this).deleteUsuario(name)){
                 Snackbar snackbar = Snackbar.make(coordinatorLayout, name + " removido!", Snackbar.LENGTH_LONG);
-                snackbar.setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // undo is selected, restore the deleted item from adapter
-                        adapterEst.restoreItem(deletedIndex);
-                    }
-                });
-                snackbar.setActionTextColor(Color.YELLOW);
                 snackbar.show();
                 }
                 else{

@@ -91,7 +91,7 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction, int position) {
         final Curso aux = adapterCurso.getSwipedItem(viewHolder.getAdapterPosition());
         idSesion=(String) getIntent().getSerializableExtra("idSesion");
-        new AlertDialog.Builder(listMatricular.this)
+        new AlertDialog.Builder(listMatricular.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert)
                 .setTitle("Desea matricular el curso")
                 .setMessage(aux.toString())
        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -99,9 +99,8 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
                         // Continue with delete operation
                         try{
                             if(DataBase.getInstancia(listMatricular.this).insertar(new Matricula(aux.getId(),idSesion))){
-                                Toast.makeText(listMatricular.this, "Se ha matriculado en el curso: "+ aux.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(listMatricular.this, "Se ha matriculado en el curso: "+ aux.getDescripcion(), Toast.LENGTH_SHORT).show();
                                 adapterCurso.removeItem(viewHolder.getAdapterPosition());
-
                             }else{
                                 Toast.makeText(listMatricular.this, "No se ha matriculado ", Toast.LENGTH_SHORT).show();
                             }
@@ -110,15 +109,11 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
                         }
                     }
                 })
-
                 // A null listener allows the button to dismiss the dialog and take no further action.
                 .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_alert)
                 .show();
-
-
-
-
+                adapterCurso.notifyDataSetChanged();
     }
 
     @Override

@@ -94,7 +94,7 @@ public class ListMatriculados extends AppCompatActivity implements AdapterMatric
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction, int position) {
         final Curso aux = adapterCurso.getSwipedItem(viewHolder.getAdapterPosition());
         idSesion = (String) getIntent().getSerializableExtra("idSesion");
-        new AlertDialog.Builder(ListMatriculados.this)
+        new AlertDialog.Builder(ListMatriculados.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert)
                 .setTitle("Desea desmatricular el curso")
                 .setMessage(aux.toString())
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -102,7 +102,7 @@ public class ListMatriculados extends AppCompatActivity implements AdapterMatric
                         // Continue with delete operation
                         try {
                             if (DataBase.getInstancia(ListMatriculados.this).delete(new Matricula(aux.getId(), idSesion))) {
-                                Toast.makeText(ListMatriculados.this, "Seguro de que desea desmatricular el curso: " + aux.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ListMatriculados.this, "Se ha desmatriculado " + aux.getDescripcion(), Toast.LENGTH_SHORT).show();
                                 adapterCurso.removeItem(viewHolder.getAdapterPosition());
 
                             } else {
@@ -113,13 +113,10 @@ public class ListMatriculados extends AppCompatActivity implements AdapterMatric
                         }
                     }
                 })
-
-                // A null listener allows the button to dismiss the dialog and take no further action.
                 .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_alert)
                 .show();
-
-
+                adapterCurso.notifyDataSetChanged();
     }
 
     @Override

@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back1"
+    android:backgroundTintMode="src_over"
+    android:backgroundTint="#CC7193dc"
     tools:context=".matricula.ListMatriculados">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@android:color/white"
         app:srcCompat="@android:drawable/ic_input_add" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -100,14 +100,6 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
 
                 if(DataBase.getInstancia(ListCurso.this).deleteCurso(name)){
                 Snackbar snackbar = Snackbar.make(coordinatorLayout, name + " removido!", Snackbar.LENGTH_LONG);
-                snackbar.setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        // undo is selected, restore the deleted item from adapter
-                        adapterCurso.restoreItem(deletedIndex);
-                    }
-                });
-                snackbar.setActionTextColor(Color.YELLOW);
                 snackbar.show();
                 }
                 else{
