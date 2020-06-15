@@ -42,6 +42,11 @@
     <string name="action_settings">Settings</string>
 
 
+
+    <string name="search_hint">Ingrese nombre..</string>
+    <string name="action_search">Buscar</string>
+
+
     <string name="Administrador">Administrador</string>
     <string name="Estudiantes">Estudiantes</string>
     <string name="bienvenido">Bienvenido</string>
