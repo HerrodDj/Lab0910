@@ -49,7 +49,6 @@ public class listEstudiante extends AppCompatActivity implements AdapterEstudian
 
         rVLC = findViewById(R.id.recyclerViewEst);
         rVLC.setItemAnimator(new DefaultItemAnimator());
-        rVLC.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         LinearLayoutManager LL = new LinearLayoutManager(this);
         rVLC.setLayoutManager(LL);
 

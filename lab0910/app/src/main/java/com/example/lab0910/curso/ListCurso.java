@@ -52,7 +52,6 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
 
         rVLC = findViewById(R.id.recyclerViewCursos);
         rVLC.setItemAnimator(new DefaultItemAnimator());
-        rVLC.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         LinearLayoutManager LL = new LinearLayoutManager(this);
         rVLC.setLayoutManager(LL);
 

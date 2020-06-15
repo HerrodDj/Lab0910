@@ -77,7 +77,7 @@
         android:id="@+id/view_foreground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
+        android:background="@color/colorPrimary"
         android:paddingEnd="@dimen/padd_10"
         android:padding="@dimen/padd_10">
 
@@ -89,7 +89,7 @@
             android:fontFamily="sans-serif-medium"
             android:maxLines="1"
             android:paddingStart="100dp"
-            android:textColor="@color/item_name"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <TextView
@@ -101,7 +101,7 @@
             android:ellipsize="end"
             android:fontFamily="sans-serif-medium"
             android:maxLines="1"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <TextView
@@ -111,7 +111,7 @@
             android:layout_below="@id/titleFirstLbl"
             android:layout_marginTop="23dp"
             android:paddingStart="100dp"
-            android:textColor="@color/description"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <ImageView

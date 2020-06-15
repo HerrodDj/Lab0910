@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText pass;
     private ImageButton btn;
     private static String rol;
+    private static String n;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent a = new Intent(MainActivity.this, principalMenu.class);
                         a.putExtra("rol", rol);
                         a.putExtra("id", id);
+                        a.putExtra("nombre",n);
                         startActivity(a);
                         finish();
                     }
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             Usuario usuario = DataBase.getInstancia(MainActivity.this).getUsuario(id);
             rol=usuario.getRole();
+            n=usuario.getNombre();
             flag=true;
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "No pudo Autentificar", Toast.LENGTH_LONG).show();  // display a toast message

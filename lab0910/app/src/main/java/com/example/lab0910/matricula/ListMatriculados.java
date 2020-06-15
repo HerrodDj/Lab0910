@@ -56,7 +56,6 @@ public class ListMatriculados extends AppCompatActivity implements AdapterMatric
 
         rVLC = findViewById(R.id.recyclerViewCursos);
         rVLC.setItemAnimator(new DefaultItemAnimator());
-        rVLC.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         LinearLayoutManager LL = new LinearLayoutManager(this);
         rVLC.setLayoutManager(LL);
 
@@ -75,8 +74,7 @@ public class ListMatriculados extends AppCompatActivity implements AdapterMatric
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                mat();
             }
         });
     }
@@ -84,6 +82,12 @@ public class ListMatriculados extends AppCompatActivity implements AdapterMatric
     @Override
     public void onContactSelected(Curso curso) {
 
+    }
+
+    public void mat(){
+        Intent a = new Intent(this, listMatricular.class);
+        a.putExtra("idSesion",idSesion);
+        startActivity(a);
     }
 
     @Override

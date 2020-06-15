@@ -53,7 +53,6 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
 
         rVLC = findViewById(R.id.recyclerViewCursos);
         rVLC.setItemAnimator(new DefaultItemAnimator());
-        rVLC.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         LinearLayoutManager LL = new LinearLayoutManager(this);
         rVLC.setLayoutManager(LL);
 
@@ -73,8 +72,7 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               back();
             }
         });
     }
@@ -82,6 +80,11 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
     @Override
     public void onContactSelected(Curso curso) {
 
+    }
+
+    public void back(){
+        Intent a = new Intent(this, principalMenu.class);
+        startActivity(a);
     }
 
     @Override

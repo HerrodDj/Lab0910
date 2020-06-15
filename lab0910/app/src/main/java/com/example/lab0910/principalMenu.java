@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.lab0910.curso.AddCurso;
 import com.example.lab0910.curso.ListCurso;
@@ -28,6 +30,11 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
     private AppBarConfiguration mAppBarConfiguration;
     static String rol;
     static String idSesion;
+    private TextView bien;
+    private TextView nombre;
+    private ImageView ima;
+    private static int ses =1;
+    private static String folder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +42,12 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_principal_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        bien=findViewById(R.id.textView2);
+        nombre=findViewById(R.id.textView3);
+        ima=findViewById(R.id.imageView2);
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -85,11 +98,27 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
             holder.setEnabled(false);
             holder = menu.findItem(R.id.Estudiantes);
             holder.setEnabled(false);
+            ima.setBackground(getDrawable(R.drawable.ic_student));
+            if(ses==1){
+                nombre.setText((String) getIntent().getSerializableExtra("nombre"));
+                folder=(String) getIntent().getSerializableExtra("nombre");
+                ses++;
+            }else {
+                nombre.setText(folder);
+            }
         }else{
             holder = menu.findItem(R.id.matricular);
             holder.setEnabled(false);
             holder = menu.findItem(R.id.listMatriculados);
             holder.setEnabled(false);
+            ima.setBackground(getDrawable(R.drawable.ic_persona));
+            if(ses==1){
+                nombre.setText((String) getIntent().getSerializableExtra("nombre"));
+                folder=(String) getIntent().getSerializableExtra("nombre");
+                ses++;
+            }else{
+                nombre.setText(folder);
+            }
         }
     }
 
@@ -143,6 +172,7 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
     }
 
     private void logOut() {
+        ses=1;
         finish();
         Intent a = new Intent(this, MainActivity.class);
         startActivity(a);
