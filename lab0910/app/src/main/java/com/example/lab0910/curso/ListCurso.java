@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MicrophoneInfo;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.lab0910.BaseDatos.DataBase;
@@ -18,6 +19,7 @@ import com.example.lab0910.principalMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -38,6 +40,7 @@ import android.widget.Toast;
 import com.example.lab0910.R;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ListCurso extends AppCompatActivity implements AdapterCurso.AdapterCursoListener, cursoHelper.RecyclerItemTouchHelperListener{
@@ -48,6 +51,7 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
     private ArrayList<Curso> listaC;
     private CoordinatorLayout coordinatorLayout;
     private SearchView searchView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +110,7 @@ public class ListCurso extends AppCompatActivity implements AdapterCurso.Adapter
                 // showing snack bar with Undo option
 
                 if(DataBase.getInstancia(ListCurso.this).deleteCurso(name)
-                        && DataBase.getInstancia(ListCurso.this).deleteCurso(name)){
+                        && DataBase.getInstancia(ListCurso.this).deleteMatriculaCurs(name)){
                 Snackbar snackbar = Snackbar.make(coordinatorLayout, name + " removido!", Snackbar.LENGTH_LONG);
                 snackbar.show();
                 }

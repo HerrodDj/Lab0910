@@ -98,7 +98,7 @@ public class principalMenu extends AppCompatActivity implements NavigationView.O
             holder.setEnabled(false);
             holder = menu.findItem(R.id.Estudiantes);
             holder.setEnabled(false);
-            ima.setBackground(getDrawable(R.drawable.ic_student));
+            ima.setBackground(getDrawable(R.drawable.ic_estudiante));
             if(ses==1){
                 nombre.setText((String) getIntent().getSerializableExtra("nombre"));
                 folder=(String) getIntent().getSerializableExtra("nombre");

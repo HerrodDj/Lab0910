@@ -17,7 +17,7 @@
         android:fontFamily="casual"
         android:paddingStart="60dp"
         android:paddingTop="50dp"
-        android:text="Bienvenido"
+        android:text="Bienvenid@"
         android:textColor="#FFFF"
         android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
