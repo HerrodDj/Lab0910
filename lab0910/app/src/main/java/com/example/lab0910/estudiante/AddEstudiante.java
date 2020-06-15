@@ -79,7 +79,7 @@ public class AddEstudiante extends AppCompatActivity {
             //DataBase dataBase= new DataBase(AddEstudiante.this);
 
             if (DataBase.getInstancia(AddEstudiante.this).insertar(usuario)){
-                Toast.makeText(AddEstudiante.this, usuario.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddEstudiante.this, usuario.getId(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddEstudiante.this, listEstudiante.class);
                 AddEstudiante.this.startActivity(intent);
             }else{
@@ -96,7 +96,7 @@ public class AddEstudiante extends AppCompatActivity {
             Usuario usuario = new Usuario( idEst.getText().toString(), nombreEst.getText().toString(), apellidosEst.getText().toString(), passwordEst.getText().toString(),"Estudiante", Integer.parseInt(edadEst.getText().toString()) );
             //DataBase dataBase= new DataBase(AddEstudiante.this);
             if (DataBase.getInstancia(AddEstudiante.this).update(usuario)){
-                Toast.makeText(AddEstudiante.this, usuario.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddEstudiante.this, usuario.getId(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AddEstudiante.this, listEstudiante.class);
                 AddEstudiante.this.startActivity(intent);
 

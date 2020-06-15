@@ -34,12 +34,17 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_list_curso">ListCurso</string>
-    <string name="title_activity_principal_menu">principalMenu</string>
+    <string name="title_activity_list_curso">Cursos</string>
+    <string name="title_activity_principal_menu">Menu Principal</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+
+
+    <string name="search_hint">Ingrese nombre..</string>
+    <string name="action_search">Buscar</string>
 
 
     <string name="Administrador">Administrador</string>
@@ -52,9 +57,9 @@
     <string name="cursosMatriculados">Cursos Matriculados</string>
     <string name="mat">Matricular</string>
     <string name="desmat">Desmatricular</string>
-    <string name="title_activity_list_estudiante">listEstudiante</string>
-    <string name="title_activity_list_matricular">listMatricular</string>
-    <string name="title_activity_list_matriculados">ListMatriculados</string>
+    <string name="title_activity_list_estudiante">Estudiantes</string>
+    <string name="title_activity_list_matricular">Matricular Cursos</string>
+    <string name="title_activity_list_matriculados">Mis Cursos</string>
 
 
 </resources>

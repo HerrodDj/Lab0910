@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back1"
+    android:backgroundTintMode="src_over"
+    android:backgroundTint="#CC7193dc"
     tools:context=".matricula.listMatricular">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:backgroundTint="@android:color/white"
+        app:srcCompat="@drawable/ic_espalda" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

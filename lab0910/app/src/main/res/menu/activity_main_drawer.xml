@@ -26,7 +26,7 @@
                     android:icon="@drawable/ic_formacion"
                     android:title="@string/cursos" />
                 <item android:id="@+id/Estudiantes"
-                    android:icon="@drawable/ic_estudiante"
+                    android:icon="@drawable/ic_estudiante1"
                     android:title="@string/Estudiantes" />
             </menu>
         </item>

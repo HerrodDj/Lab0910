@@ -95,8 +95,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     public List<Curso> listarTodoCurso(){
         List<Curso> list = new ArrayList<>();
-        String queryString = "SELECT * FROM " +CURSO_TABLE;
-
+        String queryString = "SELECT * FROM " +CURSO_TABLE + " ORDER BY "+" 1";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);
         if(cursor.moveToFirst()){

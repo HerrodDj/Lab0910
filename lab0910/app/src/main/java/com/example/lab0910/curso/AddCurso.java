@@ -89,7 +89,7 @@ public class AddCurso extends AppCompatActivity {
         Curso curso = new Curso(idCurso.getText().toString(), descriCurso.getText().toString(), Integer.parseInt(crediCursos.getText().toString()));
         DataBase dataBase =DataBase.getInstancia(AddCurso.this);
         if( dataBase.update(curso)){
-            Toast.makeText(AddCurso.this,"Se Modefico: "+ curso.toString(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddCurso.this,"Se Modifico: "+ curso.toString(),Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(AddCurso.this, ListCurso.class);
             AddCurso.this.startActivity(intent);
         }else{ Toast.makeText(AddCurso.this, "No se modifico el curso",Toast.LENGTH_SHORT).show();

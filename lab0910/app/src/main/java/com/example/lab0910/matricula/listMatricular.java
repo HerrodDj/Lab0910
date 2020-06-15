@@ -1,5 +1,7 @@
 package com.example.lab0910.matricula;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -25,6 +28,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,6 +44,7 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
     private ArrayList<Curso> listaC;
     private CoordinatorLayout coordinatorLayout;
     static String idSesion;
+    private SearchView searchView;
 
 
     @Override
@@ -53,7 +59,6 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
 
         rVLC = findViewById(R.id.recyclerViewCursos);
         rVLC.setItemAnimator(new DefaultItemAnimator());
-        rVLC.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         LinearLayoutManager LL = new LinearLayoutManager(this);
         rVLC.setLayoutManager(LL);
 
@@ -73,8 +78,7 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               back();
             }
         });
     }
@@ -84,11 +88,16 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
 
     }
 
+    public void back(){
+        Intent a = new Intent(this, principalMenu.class);
+        startActivity(a);
+    }
+
     @Override
     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction, int position) {
         final Curso aux = adapterCurso.getSwipedItem(viewHolder.getAdapterPosition());
         idSesion=(String) getIntent().getSerializableExtra("idSesion");
-        new AlertDialog.Builder(listMatricular.this)
+        new AlertDialog.Builder(listMatricular.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert)
                 .setTitle("Desea matricular el curso")
                 .setMessage(aux.toString())
        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -96,9 +105,8 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
                         // Continue with delete operation
                         try{
                             if(DataBase.getInstancia(listMatricular.this).insertar(new Matricula(aux.getId(),idSesion))){
-                                Toast.makeText(listMatricular.this, "Se ha matriculado en el curso: "+ aux.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(listMatricular.this, "Se ha matriculado en el curso: "+ aux.getDescripcion(), Toast.LENGTH_SHORT).show();
                                 adapterCurso.removeItem(viewHolder.getAdapterPosition());
-
                             }else{
                                 Toast.makeText(listMatricular.this, "No se ha matriculado ", Toast.LENGTH_SHORT).show();
                             }
@@ -107,15 +115,11 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
                         }
                     }
                 })
-
                 // A null listener allows the button to dismiss the dialog and take no further action.
                 .setNegativeButton(android.R.string.no, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(R.drawable.ic_alert)
                 .show();
-
-
-
-
+                adapterCurso.notifyDataSetChanged();
     }
 
     @Override
@@ -133,6 +137,53 @@ public class listMatricular extends AppCompatActivity  implements AdapterMatricu
         Intent a = new Intent(this, principalMenu.class);
         startActivity(a);
         super.onBackPressed();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds carreraList to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        // Associate searchable configuration with the SearchView   !IMPORTANT
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        // listening to search query text change, every type on input
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // filter recycler view when query submitted
+                adapterCurso.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                // filter recycler view when text is changed
+                adapterCurso.getFilter().filter(query);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_search) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
