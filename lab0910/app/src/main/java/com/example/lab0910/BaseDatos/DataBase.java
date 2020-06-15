@@ -381,6 +381,23 @@ public class DataBase extends SQLiteOpenHelper {
         return list;
     }
 
+    public boolean deleteMatriculaEst(String idEst){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "DELETE FROM " + MATRICULA_TABLE +
+                " WHERE " +COLUMN_ID_USUARIO+" = '"+ idEst +"'" ;
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){return false;}
+        else{return true;}
+    }
+
+    public boolean deleteMatriculaCurs(String idCurso){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "DELETE FROM " + MATRICULA_TABLE +
+                " WHERE " +COLUMN_ID_CURSO+" = '"+idCurso+"'" ;
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){return false;}
+        else{return true;}
+    }
 
 
 }
